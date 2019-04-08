@@ -1,0 +1,7 @@
+[package]
+name = "bit_count"
+version = "0.1.0"
+authors = ["lenin"]
+edition = "2018"
+
+[dependencies]
