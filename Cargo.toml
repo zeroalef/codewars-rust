@@ -1,5 +1,6 @@
 [workspace]
 members = [
-  "bit_count/",
-  "move_squared_string"
+  "bit_count",
+  "move_squared_string",
+  "buying_car"
   ]
