@@ -1,2 +1,5 @@
 [workspace]
-members = ["bit_count/"]
+members = [
+  "bit_count/",
+  "move_squared_string"
+  ]

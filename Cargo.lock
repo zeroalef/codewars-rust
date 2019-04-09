@@ -2,3 +2,7 @@
 name = "bit_count"
 version = "0.1.0"
 
+[[package]]
+name = "move_squared_string"
+version = "0.1.0"
+
