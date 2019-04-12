@@ -10,3 +10,7 @@ version = "0.1.0"
 name = "move_squared_string"
 version = "0.1.0"
 
+[[package]]
+name = "your_order"
+version = "0.1.0"
+

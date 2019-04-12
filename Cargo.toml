@@ -2,5 +2,6 @@
 members = [
   "bit_count",
   "move_squared_string",
-  "buying_car"
+  "buying_car",
+  "your_order"
   ]
