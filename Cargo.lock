@@ -7,6 +7,10 @@ name = "buying_car"
 version = "0.1.0"
 
 [[package]]
+name = "max_len_diff"
+version = "0.1.0"
+
+[[package]]
 name = "move_squared_string"
 version = "0.1.0"
 
