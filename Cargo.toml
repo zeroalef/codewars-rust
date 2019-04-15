@@ -4,5 +4,6 @@ members = [
   "move_squared_string",
   "buying_car",
   "your_order",
-  "max_len_diff"
+  "max_len_diff",
+  "same_vectors"
   ]
