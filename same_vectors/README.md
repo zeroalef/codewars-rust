@@ -33,6 +33,7 @@ b = [121, 14641, 20736, 36100, 25921, 361, 20736, 361]
 `nil` or `null` or `None` or nothing (except in Haskell, Elixir, C++, Rust, R,
 Shell, PureScript).
 
-If `a` or `b` are `nil` (or `null` or `None`), the problem doesn't make sense so return false.
+If `a` or `b` are `nil` (or `null` or `None`), the problem doesn't make sense
+so return false.
 
 If `a` or `b` are empty then the result is self-evident.
