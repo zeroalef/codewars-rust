@@ -5,4 +5,3 @@ authors = ["zeroalef <zeroalef@protonmail.com>"]
 edition = "2018"
 
 [dependencies]
-num = "*"
