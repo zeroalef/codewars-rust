@@ -6,5 +6,6 @@ members = [
   "your_order",
   "max_len_diff",
   "same_vectors",
-  "last_dig_large_num"
+  "last_dig_large_num",
+  "molecule_to_atoms"
   ]
