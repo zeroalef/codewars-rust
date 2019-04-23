@@ -9,11 +9,19 @@ name = "buying_car"
 version = "0.1.0"
 
 [[package]]
+name = "fibs_perimeter"
+version = "0.1.0"
+
+[[package]]
 name = "last_dig_large_num"
 version = "0.1.0"
 
 [[package]]
 name = "max_len_diff"
+version = "0.1.0"
+
+[[package]]
+name = "molecule_to_atoms"
 version = "0.1.0"
 
 [[package]]

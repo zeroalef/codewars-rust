@@ -7,5 +7,6 @@ members = [
   "max_len_diff",
   "same_vectors",
   "last_dig_large_num",
-  "molecule_to_atoms"
-  ]
+  "molecule_to_atoms",
+  "fibs_perimeter"
+]
