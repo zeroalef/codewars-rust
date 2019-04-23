@@ -8,5 +8,6 @@ members = [
   "same_vectors",
   "last_dig_large_num",
   "molecule_to_atoms",
-  "fibs_perimeter"
+  "fibs_perimeter",
+  "rain_fall"
 ]
