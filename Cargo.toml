@@ -9,5 +9,6 @@ members = [
   "last_dig_large_num",
   "molecule_to_atoms",
   "fibs_perimeter",
-  "rain_fall"
+  "rain_fall",
+  "granny_help"
 ]

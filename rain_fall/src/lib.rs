@@ -3,16 +3,14 @@ mod tests {
 
     type RainFallVals = (String, Vec<f64>);
 
-    // the function takes data `s` (see below the source fn da_ta()) and return vector of RainFallVals
+    // /the function takes data `s` (see below the source fn da_ta()) and return vector of RainFallVals
+    /// Output:
+    /// [
+    ///     ("Paris", [1.0, 2.0, ...]),
+    ///     ("Cairo", [1.0, 3.0, ...]),
+    ///     ...
+    /// ]
     fn bar(s: &str) -> Vec<RainFallVals> {
-        /*  transform s to the Vec<RainFallVals>
-            Output:
-            [
-                ("Paris", [1.0, 2.0, ...]),
-                ("Cairo", [1.0, 3.0, ...]),
-                ...
-            ]
-        */
         s.trim_end()
             .split('\n')
             .map(|s| {
@@ -27,7 +25,7 @@ mod tests {
     // Input:
     //     "Jan 81.2,Feb 63.2,Mar 70.3,Apr 55.7,May 53.0,Jun 36.4,Jul 17.5,Aug 27.5,Sep 60.9,Oct 117.7,Nov 111.0,Dec 97.9"
     // Output:
-    //     [81.2, 63.2, 70.3, 55.7, 53.0, 36.4, 17.5, 27.5, 60.9, 117.7, 111.0, 97.9"]
+    //     [81.2, 63.2, 70.3, 55.7, 53.0, 36.4, 17.5, 27.5, 60.9, 117.7, 111.0, 97.9]
     fn foo(s: &str) -> Vec<f64> {
         s.split(',')
             .map(|s| {
