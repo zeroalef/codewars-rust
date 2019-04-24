@@ -39,7 +39,7 @@ mod tests {
 
     fn mean(town: &str, strng: &str) -> f64 {
         // Parse data
-        let data: Vec<RainFallVals> = bar(strng);
+        let data = bar(strng);
         // return found (or not) values
         match data.iter().find(|&x| x.0 == town) {
             Some(val) => val.1.iter().sum::<f64>() / (val.1.len() as f64),
@@ -50,10 +50,13 @@ mod tests {
     fn variance(town: &str, strng: &str) -> f64 {
         // same as mean
         let data = bar(strng);
-        let av = mean(town, strng);
 
         match data.iter().find(|&x| x.0 == town) {
-            Some(val) => val.1.iter().map(|i| (i - av).powi(2)).sum::<f64>() / (val.1.len() as f64),
+            Some(val) => {
+                // get average
+                let av = val.1.iter().sum::<f64>() / (val.1.len() as f64);
+                val.1.iter().map(|i| (i - av).powi(2)).sum::<f64>() / (val.1.len() as f64)
+            },
             None => -1_f64,
         }
     }
