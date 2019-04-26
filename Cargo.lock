@@ -33,6 +33,10 @@ name = "move_squared_string"
 version = "0.1.0"
 
 [[package]]
+name = "prime_factors"
+version = "0.1.0"
+
+[[package]]
 name = "rain_fall"
 version = "0.1.0"
 

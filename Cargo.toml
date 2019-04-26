@@ -11,5 +11,6 @@ members = [
   "fibs_perimeter",
   "rain_fall",
   "granny_help",
-  "weight_for_weight"
+  "weight_for_weight",
+  "prime_factors"
 ]
