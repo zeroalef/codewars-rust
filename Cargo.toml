@@ -10,5 +10,6 @@ members = [
   "molecule_to_atoms",
   "fibs_perimeter",
   "rain_fall",
-  "granny_help"
+  "granny_help",
+  "weight_for_weight"
 ]
