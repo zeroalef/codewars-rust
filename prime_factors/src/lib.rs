@@ -2,22 +2,25 @@
 mod tests {
 
     fn prime_factors(n: i64) -> String {
-        let mut n = n as u64;
-        let mut d = 2;
-        let mut mem = std::collections::BTreeMap::new();
-        while d <= n {
-            if n % d == 0 {
-                n /= d;
-                let old = mem.entry(d).or_insert(0);
-                *old += 1;
-            } else {
-                d += 1;
+        let mut number = n;
+        let mut prime_numbers = vec![];
+        let mut factor = 2;
+        let mut cnt;
+        while number > 1 {
+            cnt = 0;
+            while number % factor == 0 {
+                number /= factor;
+                cnt += 1;
             }
-      }
-      mem.iter().map(|(key, val)| match *val {
-          1 => format!("({})", key),
-          _ => format!("({}**{})", key, val),
-      }).collect::<String>()
+            if cnt > 0 {
+                if cnt > 1
+                    {prime_numbers.push(format!("({}**{})", factor, cnt));}
+                else
+                    {prime_numbers.push(format!("({})", factor));}
+            }
+            factor += 1;
+        }
+        prime_numbers.join("")
     }
 
     fn testing(n: i64, exp: &str) {
