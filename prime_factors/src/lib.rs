@@ -1,42 +1,23 @@
 #[cfg(test)]
 mod tests {
-    use std::fmt::Write;
 
-    fn firstfac(x: i64) -> i64 {
-        if x % 2 == 0 {
-            return 2;
-        };
-        for n in (1..).map(|m| 2 * m + 1).take_while(|m| m * m <= x) {
-            if x % n == 0 {
-                return n;
-            };
-        }
-        x
-    }
-
-    #[allow(clippy::match_bool)]
     fn prime_factors(n: i64) -> String {
-        let mut ret: Vec<(i64, usize)> = Vec::new();
-        let mut current = n;
-        loop {
-            let m = firstfac(current);
-            match ret.iter().position(|&x| x.0 == m) {
-                Some(i) => ret[i] = (m, ret[i].1 + 1),
-                None => ret.push((m, 1)),
-            }
-            if m == current {
-                break;
+        let mut n = n as u64;
+        let mut d = 2;
+        let mut mem = std::collections::BTreeMap::new();
+        while d <= n {
+            if n % d == 0 {
+                n /= d;
+                let old = mem.entry(d).or_insert(0);
+                *old += 1;
             } else {
-                current /= m
-            };
-        }
-        ret.iter().fold(String::new(), |mut acc, item| {
-            match item.1 == 1 {
-                true => write!(acc, "({})", item.0).ok(),
-                false => write!(acc, "({}**{})", item.0, item.1).ok(),
-            };
-            acc
-        })
+                d += 1;
+            }
+      }
+      mem.iter().map(|(key, val)| match *val {
+          1 => format!("({})", key),
+          _ => format!("({}**{})", key, val),
+      }).collect::<String>()
     }
 
     fn testing(n: i64, exp: &str) {
