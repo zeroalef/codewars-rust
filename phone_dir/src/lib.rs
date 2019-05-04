@@ -164,7 +164,7 @@ mod tests {
             "1-098-512-2222",
             "Error => Too many people: 1-098-512-2222",
         );
-        dotest_regex(
+        dotest(
             dir,
             "8-421-674-8974",
             "Phone => 8-421-674-8974, Name => Elizabeth Corber, Address => Via Papa Roma",
