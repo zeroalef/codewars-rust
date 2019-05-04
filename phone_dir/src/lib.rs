@@ -7,31 +7,39 @@ mod tests {
     const VALID_CHARS: &str = " .-_";
 
     fn phone_regex(dir: &str, num: &str) -> String {
-    let num_regex = Regex::new(r"[0-9]+-[0-9]+-[0-9]+-[0-9]+").unwrap();
-    let match_lines = dir.split("\n").filter(|line| match num_regex.captures(line) {
-            Some(val) => &val[0] == num,
-            None => false
-    }).collect::<Vec<&str>>();
-    match match_lines.len() {
-        0 => format!("Error => Not found: {}", num),
-        1 => {
-            let name_regex = Regex::new(r"<(.*?)>").unwrap();
-            let cleanup_regex = Regex::new(r"([/+;*$!]|<(.*?)>)").unwrap();
-            let name_captures = &name_regex.captures(match_lines[0]).unwrap();
-            let name = &name_captures[1];
-            let remaining_text = match_lines[0].replace(&num, "");
-            let addr = cleanup_regex.replace_all(&remaining_text, "");
-            let modified_addr = Regex::new(r"(\s+|_)").unwrap().replace_all(&addr, " ");
-            format!("Phone => {}, Name => {}, Address => {}", num, name, modified_addr.trim())
+        let num_regex = Regex::new(r"[0-9]+-[0-9]+-[0-9]+-[0-9]+").unwrap();
+        let match_lines = dir
+            .split("\n")
+            .filter(|line| match num_regex.captures(line) {
+                Some(val) => &val[0] == num,
+                None => false,
+            })
+            .collect::<Vec<&str>>();
+        match match_lines.len() {
+            0 => format!("Error => Not found: {}", num),
+            1 => {
+                let name_regex = Regex::new(r"<(.*?)>").unwrap();
+                let cleanup_regex = Regex::new(r"([/+;*$!]|<(.*?)>)").unwrap();
+                let name_captures = &name_regex.captures(match_lines[0]).unwrap();
+                let name = &name_captures[1];
+                let remaining_text = match_lines[0].replace(&num, "");
+                let addr = cleanup_regex.replace_all(&remaining_text, "");
+                let modified_addr = Regex::new(r"(\s+|_)").unwrap().replace_all(&addr, " ");
+                format!(
+                    "Phone => {}, Name => {}, Address => {}",
+                    num,
+                    name,
+                    modified_addr.trim()
+                )
+            }
+            _ => format!("Error => Too many people: {}", num),
         }
-        _ => format!("Error => Too many people: {}", num)
     }
-}
 
     fn phone(dir: &str, num: &str) -> String {
         let mut candidates: Vec<_> = dir
             .lines()
-            .filter(|s| {s.contains(&format!("{}{}", '+', num))})
+            .filter(|s| s.contains(&format!("{}{}", '+', num)))
             .collect();
 
         match candidates.len() {
@@ -39,14 +47,17 @@ mod tests {
             1 => {
                 let mut ret: String = format!("Phone => {}, ", num);
                 let tmp_str: String = candidates.pop().unwrap().replace(num, "");
-                let name: &str = &tmp_str[tmp_str.find('<').unwrap() + 1..tmp_str.find('>').unwrap()];
+                let name: &str =
+                    &tmp_str[tmp_str.find('<').unwrap() + 1..tmp_str.find('>').unwrap()];
                 ret.push_str(&format!("Name => {}, ", name));
                 ret.push_str(&format!(
                     "Address => {}",
                     tmp_str
                         .replace(name, "")
                         .chars()
-                        .filter(|&ch| ch.is_alphabetic() || ch.is_digit(10) || VALID_CHARS.contains(ch))
+                        .filter(|&ch| ch.is_alphabetic()
+                            || ch.is_digit(10)
+                            || VALID_CHARS.contains(ch))
                         .collect::<String>()
                         .split(|ch| ch == ' ' || ch == '_')
                         .filter(|s| !s.is_empty())
@@ -153,6 +164,11 @@ mod tests {
             "1-098-512-2222",
             "Error => Too many people: 1-098-512-2222",
         );
+        dotest_regex(
+            dir,
+            "8-421-674-8974",
+            "Phone => 8-421-674-8974, Name => Elizabeth Corber, Address => Via Papa Roma",
+        );
         dotest(dir, "5-555-555-5555", "Error => Not found: 5-555-555-5555");
     }
 
@@ -183,6 +199,11 @@ mod tests {
             dir,
             "1-098-512-2222",
             "Error => Too many people: 1-098-512-2222",
+        );
+        dotest_regex(
+            dir,
+            "8-421-674-8974",
+            "Phone => 8-421-674-8974, Name => Elizabeth Corber, Address => Via Papa Roma",
         );
         dotest_regex(dir, "5-555-555-5555", "Error => Not found: 5-555-555-5555");
     }
