@@ -1,46 +1,41 @@
 #[cfg(test)]
-    mod tests {
+mod tests {
 
     const VALID_CHARS: &str = " .-_";
 
     fn phone(dir: &str, num: &str) -> String {
         let mut candidates: Vec<_> = dir
             .lines()
-            .filter(|s| {
-                let start = s.find('+').unwrap_or(0);
-                let end = start + num.len() + 1;
-                end < s.len() && s[start + 1..end] == *num
-            })
+            .filter(|s| {s.contains(&format!("{}{}", '+', num))})
             .collect();
 
         match candidates.len() {
-            0 => String::from(format!("Error => Not found: {}", num)),
+            0 => format!("Error => Not found: {}", num),
             1 => {
-                let mut ret: String = String::from(format!("Phone => {}, ", num));
-                let tmp_str: String = String::from(candidates.pop().unwrap()).replace(num, "");
-                let name =
-                    String::from(&tmp_str[tmp_str.find('<').unwrap() + 1..tmp_str.find('>').unwrap()]);
-                ret.push_str(&format!("Name => {}, ", &name));
+                let mut ret: String = format!("Phone => {}, ", num);
+                let tmp_str: String = candidates.pop().unwrap().replace(num, "");
+                let name: &str = &tmp_str[tmp_str.find('<').unwrap() + 1..tmp_str.find('>').unwrap()];
+                ret.push_str(&format!("Name => {}, ", name));
                 ret.push_str(&format!(
                     "Address => {}",
                     tmp_str
-                        .replace(name.as_str(), "")
+                        .replace(name, "")
                         .chars()
                         .filter(|&ch| ch.is_alphabetic() || ch.is_digit(10) || VALID_CHARS.contains(ch))
                         .collect::<String>()
-                        .split(|c| c == ' ' || c == '_')
+                        .split(|ch| ch == ' ' || ch == '_')
                         .filter(|s| !s.is_empty())
                         .collect::<Vec<_>>()
                         .join(" ")
                 ));
                 ret
             }
-            _ => String::from(format!("Error => Too many people: {}", num)),
+            _ => format!("Error => Too many people: {}", num),
         }
     }
 
-fn dr() -> String {
-let dr0 = r#"/+1-541-754-3010 156 Alphand_St. <J Steeve>
+    fn dr() -> String {
+        let dr0 = r#"/+1-541-754-3010 156 Alphand_St. <J Steeve>
 133, Green, Rd. <E Kustur> NY-56423 ;+1-541-914-3010;
 +1-541-984-3012 <P Reed> /PO Box 530; Pollocksville, NC-28573
 :+1-321-512-2222 <Paul Dive> Sequoia Alley PQ-67209
@@ -83,8 +78,8 @@ let dr0 = r#"/+1-541-754-3010 156 Alphand_St. <J Steeve>
 +8-931-512-4855 <W Mount> Oxford Street CQ-23071
 <Donald Drinkaw> Moon Street, +3-098-512-2222, Peterville
 "#;
-    return String::from(dr0);
-}
+        String::from(dr0)
+    }
     fn dotest(dir: &str, num: &str, exp: &str) -> () {
         println!("num:{}", num);
         let ans = phone(dir, num);
@@ -98,12 +93,31 @@ let dr0 = r#"/+1-541-754-3010 156 Alphand_St. <J Steeve>
     #[test]
     fn basis_tests() {
         let dir = &dr();
-        dotest(dir, "48-421-674-8974", "Phone => 48-421-674-8974, Name => Anastasia, Address => Via Quirinal Roma");
-        dotest(dir, "1-921-512-2222", "Phone => 1-921-512-2222, Name => Wilfrid Stevens, Address => Wild Street AA-67209");
-        dotest(dir, "1-908-512-2222", "Phone => 1-908-512-2222, Name => Peter O'Brien, Address => High Street CC-47209");
-        dotest(dir, "1-541-754-3010", "Phone => 1-541-754-3010, Name => J Steeve, Address => 156 Alphand St.");
-        dotest(dir, "1-098-512-2222", "Error => Too many people: 1-098-512-2222");
+        dotest(
+            dir,
+            "48-421-674-8974",
+            "Phone => 48-421-674-8974, Name => Anastasia, Address => Via Quirinal Roma",
+        );
+        dotest(
+            dir,
+            "1-921-512-2222",
+            "Phone => 1-921-512-2222, Name => Wilfrid Stevens, Address => Wild Street AA-67209",
+        );
+        dotest(
+            dir,
+            "1-908-512-2222",
+            "Phone => 1-908-512-2222, Name => Peter O'Brien, Address => High Street CC-47209",
+        );
+        dotest(
+            dir,
+            "1-541-754-3010",
+            "Phone => 1-541-754-3010, Name => J Steeve, Address => 156 Alphand St.",
+        );
+        dotest(
+            dir,
+            "1-098-512-2222",
+            "Error => Too many people: 1-098-512-2222",
+        );
         dotest(dir, "5-555-555-5555", "Error => Not found: 5-555-555-5555");
-
     }
 }
