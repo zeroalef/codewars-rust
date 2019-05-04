@@ -12,5 +12,6 @@ members = [
   "rain_fall",
   "granny_help",
   "weight_for_weight",
-  "prime_factors"
+  "prime_factors",
+  "phone_dir"
 ]
